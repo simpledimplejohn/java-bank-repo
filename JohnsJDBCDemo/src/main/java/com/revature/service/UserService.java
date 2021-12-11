@@ -65,5 +65,12 @@ public class UserService {
 		// could also be a enhaced for loop
 	}
 	
+	public boolean userExists(String username) {
+		if(udao.findByUserName(username) != null) {
+			return true;
+		}
+		return false;
+	}
+	
 
 }

@@ -3,6 +3,7 @@ package com.revature;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import com.revature.dao.UserDAO;
 import com.revature.models.Account;
 import com.revature.models.Role;
 import com.revature.models.User;
@@ -16,10 +17,23 @@ public class App {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		run();
-//		UserService user = new UserService();
-//		user.listAllAccounts();
-//	
+		//run();
+		UserService userv = new UserService();
+		UserDAO newUserDAO = new UserDAO();
+		
+		
+		User u = newUserDAO.findByUserName("John");
+		//System.out.println(u.getUsername());
+		System.out.println("should be null!!" +u);
+		//System.out.println(newUserDAO.findByUserName("fdhsaklgdsfds"));
+		
+		if(u.getUsername() == null) {
+			System.out.println("user does not exist");
+		} else {
+			System.out.println("user does esist");
+		}
+		
+		
 	}
 	
 	public static void run() {
@@ -30,7 +44,7 @@ public class App {
 		
 		System.out.println("Welcome!");
 		System.out.println("If you would like to login press 1\nIf you are a new Customer press 2");
-		int input = scan.nextInt();
+		int input = 1;//scan.nextInt();
 		
 		if (input == 1) {
 			//call login method

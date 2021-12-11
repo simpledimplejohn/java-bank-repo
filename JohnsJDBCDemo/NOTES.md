@@ -19,4 +19,7 @@ How to build project with tests
 Connecting to the database
 - com.revature.util/CoonectionUtil.java has the link to the repo
 - application.properties has the url to connect to postgres
+
+Getting Database Running
+- Run build table scripts to build tables and foreigner keys
 - 

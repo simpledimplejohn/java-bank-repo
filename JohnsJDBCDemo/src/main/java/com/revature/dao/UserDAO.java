@@ -2,7 +2,8 @@ package com.revature.dao;
 
 import java.sql.Connection; //has getConnection()
 import java.sql.PreparedStatement; // has conn.prepareStatment(sql)
-import java.sql.ResultSet; 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
@@ -83,15 +84,36 @@ public class UserDAO implements IUserDAO {
 		User u = new User();
 		try(Connection conn = ConnectionUtil.getConnection()) {
 			/////// SETUP SQL STATMENT
-			String sql = "SELECT * FROM user WHERE username = ?"; // this is built into the JVDC
+			String sql = "SELECT * FROM users WHERE username = ?"; // this is built into the JVDC
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, username); // sets the ? to username
 			////// DATABASE CALL HERE
 			ResultSet rs; 
 			if((rs = stmt.executeQuery()) != null) {
 				// GRABS FROM EACH ROW OF THE DB
-				rs.next();
-				int id = rs.getInt("id");
+				// debuggin the result set
+//				ResultSetMetaData rsmd = rs.getMetaData();
+//				int columnsNumber = rsmd.getColumnCount();
+//				while (rs.next()) {
+//					for(int i =1; i <= columnsNumber; i++) {
+//						if (i>1) System.out.println(", ");
+//						String columnValue = rs.getString(i);
+//						System.out.println(columnValue + " " + rsmd.getColumnName(i));
+//					}
+//				}
+//				
+				
+//				
+//				System.out.println("this is result set");
+//				
+//				System.out.println(rs.toString());
+				//rs.next();
+				
+				if(rs.next()) {
+					int id = rs.getInt("id");
+				
+				
+				
 		///// THESE HAVE TO MATCH THE OBJECT
 				String returnedUsername = rs.getString("username");
 				String password = rs.getString("pwd");
@@ -101,7 +123,7 @@ public class UserDAO implements IUserDAO {
 				u.setUsername(returnedUsername);
 				u.setPwd(password);
 				u.setRole(role);
-				
+				}	
 			} else {
 				return u;
 			}
